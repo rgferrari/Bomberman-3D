@@ -16,12 +16,12 @@ Shader "Unlit/Bomb"
 
     SubShader
     {
-        Tags {"Queue"="Transparent" "RenderType"="Transparent" }
-        //Tags { "RenderType" = "Opaque" }
-        LOD 100
+        Tags {"Queue"="Geometry"}
+        Tags { "RenderType" = "Opaque" }
+        //LOD 100
 
-        ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite on
+        //Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -60,9 +60,9 @@ Shader "Unlit/Bomb"
             {
                 v2f o;
 
-                v.vertex.x += (sin(_Time.y * _Speed + _Amplitude) * _Distance * _Amount * v.normal);
-                v.vertex.y += (sin(_Time.y * _Speed + _Amplitude) * _Distance * _Amount * v.normal.y);
-                v.vertex.z += (sin(_Time.y * _Speed + _Amplitude) * _Distance * _Amount * v.normal.z);
+                v.vertex.x += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal);
+                v.vertex.y += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal.y);
+                v.vertex.z += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal.z);
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -73,6 +73,8 @@ Shader "Unlit/Bomb"
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv) + _TintColor; // + _TintColor para as linhas
+
+                _TintColor.r = sin(_Time.z * 2.005f);
 
                 //fixed4 pixelColor = tex2D(_MainTex, i.uv);
                 //col.a = _Transparency;
