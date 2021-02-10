@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bomba
-  m_Shader: {fileID: 4800000, guid: 623e424190e81a84e8d1b8c45a2be184, type: 3}
+  m_Name: Bomba Toon
+  m_Shader: {fileID: 4800000, guid: e201cdaac24170242b83f0f9c5151524, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -43,10 +43,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Maintexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,63 +55,30 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Secondarytexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _texcoord:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Amount: 0.56
+    - _Amount: 0.5
     - _Amplitude: 0
-    - _Bias: 0
-    - _BrightnessFactor: 1
+    - _Brightness: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _CutoutThresh: 1
     - _DetailNormalMapScale: 1
     - _Distance: 0.1
     - _DstBlend: 0
-    - _Enablepulsation: 0
-    - _Globalopacity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0.237
-    - _Intensity: 1
-    - _Invertmaintexture: 0
-    - _Invertsecondarytexture: 0
-    - _Maintextureintensity: 1
-    - _Metallic: 1
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outerfresnelintensity: 0.231
     - _Parallax: 0.02
-    - _Power: 1.88
-    - _PulsationAmplitude: 3.36
-    - _PulsationSpeed: 51.6
-    - _Scale: 1
-    - _Secondarytextureintensity: 1
-    - _Shininess: 10
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 2
     - _SrcBlend: 1
-    - _Transparency: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - __dirty: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Edgecolor: {r: 0.7941176, g: 0.1284602, b: 0.1284602, a: 0.666}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Maincolor: {r: 0.7941176, g: 0.1284602, b: 0.1284602, a: 0.666}
-    - _Mainpanningspeed: {r: 0, g: 0, b: 0, a: 0}
-    - _Secondarycolor: {r: 0, g: 0, b: 0, a: 0}
-    - _Secondarypanningspeed: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 1, g: 0, b: 0, a: 1}
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 0.8301887, g: 0.2232111, b: 0.2232111, a: 1}
+    - _TintColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

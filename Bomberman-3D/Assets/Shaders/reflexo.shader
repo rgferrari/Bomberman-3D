@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Bomb"
+﻿Shader "Unlit/reflexo"
 {
     Properties {
         _MainTex ("Albedo Texture", 2D) = "white" {}
