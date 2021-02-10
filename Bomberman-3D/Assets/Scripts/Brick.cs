@@ -7,7 +7,7 @@ public class Brick : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject);
+
     }
 
     // Update is called once per frame
@@ -17,6 +17,6 @@ public class Brick : MonoBehaviour
     }
 
     void OnDestroy(){
-        Debug.Log("Dropped some item!");
+        Debug.Log("Brick destroyed");
     }
 }
