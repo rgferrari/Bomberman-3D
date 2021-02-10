@@ -51,9 +51,15 @@
 
             float Toon(float3 normal, float3 lightDir)
             {
+                float detail = -sin(_Time.z * 2);
+
                 float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
 
-                return floor(NdotL/0.2);
+                // if (NdotL == 0){
+                //     return floor(NdotL/0.49) + 0.5 *  _Brightness;
+                // }
+
+                return floor(NdotL/0.49);
             }
 
 
@@ -91,12 +97,15 @@
 
                 col *= Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) + _Brightness;
 
+
+
                 //fixed4 pixelColor = tex2D(_MainTex, i.uv);
                 //col.a = _Transparency;
                 //clip(col.r - _CutoutThresh);
                 return col * _TintColor;
             }
             ENDCG
-        }
-    } 
+        }   
+    }
+    Fallback "VertexLit" 
 }

@@ -59,7 +59,7 @@ Material:
     - PixelSnap: 0
     - _Amount: 1
     - _Amplitude: 0
-    - _BrightnessFactor: 2.53
+    - _BrightnessFactor: 5.76
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -83,5 +83,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.46226418, g: 0.24203454, b: 0.24203454, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TintColor: {r: 0.39215687, g: 0.01201493, b: 0.01201493, a: 1}
+    - _TintColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

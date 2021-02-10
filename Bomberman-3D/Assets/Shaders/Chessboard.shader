@@ -2,18 +2,22 @@
 {
     Properties
     {
-        _Magnitude ("Magnitude", Float) = 8 // chessboard size
+        _MagnitudeX ("Magnitude X", Float) = 10 // chessboard size
+        _MagnitudeZ ("Magnitude Z", Float) = 10
         _ColorA ("Color A", COLOR) = (1,1,1,1)
         _ColorB ("Color B", COLOR) = (0,0,0,1)
     }
+
     SubShader {
+        Tags { "RenderType" = "Opaque" }
+
         Pass {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
-            float _Magnitude; // chessboard size
+            float _MagnitudeX; // chessboard size
+            float _MagnitudeZ; // chessboard size
             float4 _ColorA, _ColorB;
 
             struct vertexInput {
@@ -35,15 +39,15 @@
 
             fixed4 frag(fragmentInput i) : SV_Target {
                 fixed4 color;
-                if ( fmod(i.texcoord0.x*_Magnitude,2.0) < 1.0 ){
-                    if ( fmod(i.texcoord0.y*_Magnitude,2.0) < 1.0 )
+                if ( fmod(i.texcoord0.x*_MagnitudeX,2.0) < 1.0 ){
+                    if ( fmod(i.texcoord0.y*_MagnitudeZ,2.0) < 1.0 )
                     {
                         color = _ColorA;
                     } else {
                         color = _ColorB;
                     }
                 } else {
-                    if ( fmod(i.texcoord0.y*_Magnitude,2.0) > 1.0 )
+                    if ( fmod(i.texcoord0.y*_MagnitudeZ,2.0) > 1.0 )
                     {
                         color = _ColorA;
                     } else {
@@ -54,4 +58,5 @@
             ENDCG
         }
     }
+    Fallback "VertexLit"
 }

@@ -7,7 +7,7 @@ public class PerlinNoise : MonoBehaviour
 
     public float Scale = 20f;
 
-    void Update() {
+    void Start() {
         Renderer renderer = GetComponent<Renderer>();
         renderer.material.SetTexture("_SurfaceNoise", GenerateTexture());
     }
