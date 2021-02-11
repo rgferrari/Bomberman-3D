@@ -103,6 +103,7 @@ MonoBehaviour:
   levelMaskBlocks:
     serializedVersion: 2
     m_Bits: 256
+  playerPrefab: {fileID: 7916135815902925799, guid: 7c5d55af2ea81b1418334c8b7a03f82d, type: 3}
 --- !u!54 &-6859227974912073245
 Rigidbody:
   m_ObjectHideFlags: 0

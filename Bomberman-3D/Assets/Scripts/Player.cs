@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,11 +9,11 @@ public class Player : MonoBehaviour
 
     public int playerNumber = 1;
 
-    public int numBombs = 1;
+    public int numBombs;
 
-    public float numSpeeds = 1.1f;
+    public float numSpeeds;
 
-    public int numExplosions = 1;
+    public int numExplosions;
 
     Rigidbody Rig;
 
@@ -32,6 +33,10 @@ public class Player : MonoBehaviour
     //Can the player move?
     public bool dead = false;
     //Is this player dead?
+
+    public Text textNumBomb;
+    public Text textNumExplosion;
+    public Text textNumSpeed;
     
     void Start() {
         //Cache the attached components for better performance and less typing
@@ -77,6 +82,7 @@ public class Player : MonoBehaviour
                 if (col == false){
                     if(objs.Length < numBombs)
                     {
+                        bombPrefab.gameObject.GetComponent<Bomb>().numExplosions = numExplosions;
                         Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(myTransform.position.x), 
                                 myTransform.position.y + 0.5f, Mathf.RoundToInt(myTransform.position.z)),
                                 bombPrefab.transform.rotation);
@@ -97,20 +103,23 @@ public class Player : MonoBehaviour
         if (other.CompareTag ("numBombs"))
         {
             numBombs += 1;
-            Debug.Log("Other Collider:" + other.name);
+            textNumBomb.text = numBombs.ToString();
+            //Debug.Log("Other Collider:" + other.name);
         }
 
         if (other.CompareTag ("numExplosions"))
         {
             numExplosions += 1;
-            Debug.Log("Other Collider:" + other.name);
+            textNumExplosion.text = numExplosions.ToString();
+            //Debug.Log("Other Collider:" + other.name);
         }
 
         if (other.CompareTag ("numSpeeds"))
         {
             numSpeeds += 0.2f;
             //Debug.Log ("Speed = " + numSpeeds);
-            Debug.Log("Other Collider:" + other.name);
+            textNumSpeed.text = (speed * numSpeeds).ToString();
+            //Debug.Log("Other Collider:" + other.name);
             //Destroy(gameObject);
         }
     }

@@ -11,6 +11,11 @@ public class Bomb : MonoBehaviour
     public LayerMask levelMaskBlocks;
     private bool exploded = false;
 
+
+    public GameObject playerPrefab;
+
+    public int numExplosions = 1;
+
     void Start ()
     {
         Invoke("Explode", 3f); //Call Explode in 3 seconds
@@ -18,6 +23,8 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
+        //numExplosions = playerPrefab.gameObject.GetComponent<Player>().numExplosions;
+        Debug.Log(numExplosions);
         /*Vector3 forward = transform.TransformDirection(Vector3.forward) + new Vector3(0,0,0.5f);
         Vector3 right = transform.TransformDirection(Vector3.right) + new Vector3(0.5f,0,0);
         Vector3 back = transform.TransformDirection(Vector3.back) + new Vector3(0,0,-0.5f);
@@ -65,14 +72,14 @@ public class Bomb : MonoBehaviour
 
         RaycastHit hitBlocks;
 
-        int dist = 2;
+        //int dist = 2;
 
         Physics.Raycast(transform.position, direction, out hit, 2, levelMask);
 
         Physics.Raycast(transform.position, direction, out hitBlocks, 2, levelMaskBlocks);
 
         Debug.DrawLine(transform.position, hit.point, Color.green);
-        for (int i = 1; i <= dist; i++) 
+        for (int i = 1; i <= numExplosions; i++) 
         { 
             if(!hit.collider)
             {

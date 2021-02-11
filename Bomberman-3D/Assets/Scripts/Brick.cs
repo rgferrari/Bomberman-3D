@@ -57,21 +57,21 @@ public class Brick : MonoBehaviour
 
             num++;
 
-            Debug.Log ("AAAAAAAAAAA");
+            //Debug.Log ("AAAAAAAAAAA");
             anim.Play("DestroyBricks");
             Destroy(gameObject, 0.5f);
         }
     }
 
     void OnDestroy(){
-        Debug.Log("Brick destroyed");
+        //Debug.Log("Brick destroyed");
     }
 
      public void OnTriggerEnter (Collider other)
      {
          //if (other.CompareTag("Explosion"))
          //{
-             Debug.Log ("Block" + " hit by explosion!");
+             //Debug.Log ("Block" + " hit by explosion!");
              //Destroy(gameObject);
          //}
     }
