@@ -33,9 +33,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        Vector3 Position = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        //Vector3 Position = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         
-        rigidBody.velocity = Position * speed;
+        //rigidBody.velocity = Position * speed;
+
+        UpdatePlayerMovement();
     }
 
     void Update ()
@@ -78,6 +80,34 @@ public class Player : MonoBehaviour
         {
             Debug.Log ("P" + playerNumber + " hit by explosion!");
             //Destroy(gameObject);
+        }
+    }
+
+    private void UpdatePlayerMovement ()
+    {
+        if (Input.GetKey (KeyCode.UpArrow))
+        { //Up movement
+            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, speed);
+            myTransform.rotation = Quaternion.Euler (0, 0, 0);
+        }
+
+        if (Input.GetKey (KeyCode.LeftArrow))
+        { //Left movement
+            rigidBody.velocity = new Vector3 (-speed, rigidBody.velocity.y, rigidBody.velocity.z);
+            myTransform.rotation = Quaternion.Euler (0, 270, 0);
+        }
+
+        if (Input.GetKey (KeyCode.DownArrow))
+        { //Down movement
+            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -speed);
+            myTransform.rotation = Quaternion.Euler (0, 180, 0);
+
+        }
+
+        if (Input.GetKey (KeyCode.RightArrow))
+        { //Right movement
+            rigidBody.velocity = new Vector3 (speed, rigidBody.velocity.y, rigidBody.velocity.z);
+            myTransform.rotation = Quaternion.Euler (0, 90, 0);
         }
     }
     

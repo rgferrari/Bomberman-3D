@@ -42,7 +42,7 @@ public class Bomb : MonoBehaviour
 
         GetComponent<MeshRenderer>().enabled = false;
         exploded = true;
-        GetComponent<SphereCollider>().gameObject.SetActive(false);
+        GetComponent<BoxCollider>().gameObject.SetActive(false);
         Destroy(gameObject, .3f);
     }
 

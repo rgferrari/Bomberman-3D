@@ -15,11 +15,16 @@
 
     SubShader
     {
-        Tags {"Queue"="Geometry"}
-        Tags { "RenderType" = "Opaque" }
+        Tags 
+		{ 
+			"RenderType" = "Opaque"
+			"LightMode" = "ForwardBase"
+		}
+
+        UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
         //LOD 100
 
-        ZWrite on
+        //ZWrite on
         //Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -51,13 +56,7 @@
 
             float Toon(float3 normal, float3 lightDir)
             {
-                float detail = -sin(_Time.z * 2);
-
                 float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
-
-                // if (NdotL == 0){
-                //     return floor(NdotL/0.49) + 0.5 *  _Brightness;
-                // }
 
                 return floor(NdotL/0.49);
             }
@@ -76,9 +75,9 @@
             {
                 v2f o;
 
-                v.vertex.x += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal);
-                v.vertex.y += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal.y);
-                v.vertex.z += (sin(_Time.z * _Speed + _Amplitude) * _Distance * _Amount * v.normal.z);
+                v.vertex.x += (((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal);
+                v.vertex.y += (((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal.y);
+                v.vertex.z += (((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal.z);
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -91,21 +90,31 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv) + _TintColor; // + _TintColor para as linhas
-
-                _TintColor.r = sin(_Time.z * 2);
-
-                col *= Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) + _Brightness;
+                //fixed4 col = tex2D(_MainTex, i.uv) + _TintColor; // + _TintColor para as linhas
 
 
+                fixed4 original = tex2D(_MainTex, i.uv);
+				fixed lum = saturate(Luminance(_TintColor.rgb)) - 0.1;
+
+				fixed4 output;
+				output.rgb = lerp(_TintColor.rgb, fixed3(lum,lum,lum), -sin(_Time.z*2));
+				output.a = original.a;
+                if(Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) < 0.5f){
+                    return output * 0.5f;
+                }
+				
+                return output * Toon(i.worldNormal, _WorldSpaceLightPos0.xyz);
+
+                //_TintColor.r = sin(_Time.z * 2);
+
+                //col *= Toon(i.worldNormal, _WorldSpaceLightPos0.xyz) + _Brightness;
 
                 //fixed4 pixelColor = tex2D(_MainTex, i.uv);
                 //col.a = _Transparency;
                 //clip(col.r - _CutoutThresh);
-                return col * _TintColor;
+                //return col * _TintColor;
             }
             ENDCG
-        }   
-    }
-    Fallback "VertexLit" 
+        }
+    } 
 }

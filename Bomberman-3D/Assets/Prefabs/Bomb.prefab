@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8936500783935500375}
   - component: {fileID: 857471282612925340}
   - component: {fileID: 9170313016908743597}
-  - component: {fileID: 175437722209805679}
   - component: {fileID: 1318453158727121932}
   - component: {fileID: -6859227974912073245}
   - component: {fileID: 3270409444666281667}
@@ -85,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &175437722209805679
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824507874171719224}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1318453158727121932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +91,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824507874171719224}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d6baa963e9ec2a479cf849d46459215, type: 3}
   m_Name: 
@@ -113,7 +99,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 6785306884568438020, guid: 6d1d5c27e1244e745b44c188189815a5, type: 3}
   levelMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2048
 --- !u!54 &-6859227974912073245
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,5 +127,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.33, y: 1.33, z: 1.33}
+  m_Center: {x: 0, y: 0.17, z: 0}

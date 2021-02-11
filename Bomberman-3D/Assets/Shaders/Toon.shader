@@ -10,7 +10,13 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags 
+		{ 
+			"RenderType" = "Opaque"
+			"LightMode" = "ForwardBase"
+		}
+
+        UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
         LOD 100
 
         Pass

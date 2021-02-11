@@ -1,4 +1,6 @@
-﻿Shader "Custom/Chessboard"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Chessboard"
 {
     Properties
     {
@@ -9,12 +11,19 @@
     }
 
     SubShader {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "LightMode" = "ForwardBase" }
 
         Pass {
+            
             CGPROGRAM
+            #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
             #pragma vertex vert
             #pragma fragment frag
+
+            #pragma multi_compile_fwdbase
+
+            #include "AutoLight.cginc"
 
             float _MagnitudeX; // chessboard size
             float _MagnitudeZ; // chessboard size
@@ -26,14 +35,16 @@
             };
 
             struct fragmentInput{
-                float4 position : SV_POSITION;
+                float4 pos : SV_POSITION;
                 float4 texcoord0 : TEXCOORD0;
+                LIGHTING_COORDS(1,2)
             };
 
             fragmentInput vert(vertexInput i){
                 fragmentInput o;
-                o.position = UnityObjectToClipPos (i.vertex);
+                o.pos = UnityObjectToClipPos (i.vertex);
                 o.texcoord0 = i.texcoord0;
+                TRANSFER_VERTEX_TO_FRAGMENT(o);
                 return o;
             }
 
@@ -53,7 +64,10 @@
                     } else {
                         color = _ColorB;}
                     }
-                return color;
+
+                float attenuation = LIGHT_ATTENUATION(i);
+
+                return color * attenuation;
             }
             ENDCG
         }
