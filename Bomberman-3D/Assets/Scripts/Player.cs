@@ -8,7 +8,15 @@ public class Player : MonoBehaviour
 
     public int playerNumber = 1;
 
+    public int numBombs = 1;
+
+    public float numSpeeds = 1.1f;
+
+    public int numExplosions = 1;
+
     Rigidbody Rig;
+
+    //bool colide = false;
 
     //Prefabs
     public GameObject bombPrefab;
@@ -54,6 +62,7 @@ public class Player : MonoBehaviour
             {
                 GameObject[] objs;
                 objs = GameObject.FindGameObjectsWithTag("Bomb");
+                
                 Vector3 player = new Vector3(Mathf.RoundToInt(myTransform.position.x), 
                                 myTransform.position.y, Mathf.RoundToInt(myTransform.position.z));
 
@@ -63,12 +72,15 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                Debug.Log(objs.Length);
+                //Debug.Log(objs.Length);
 
                 if (col == false){
-                    Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(myTransform.position.x), 
-                                myTransform.position.y, Mathf.RoundToInt(myTransform.position.z)),
+                    if(objs.Length < numBombs)
+                    {
+                        Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(myTransform.position.x), 
+                                myTransform.position.y + 0.5f, Mathf.RoundToInt(myTransform.position.z)),
                                 bombPrefab.transform.rotation);
+                    }
                 }
             }
         }
@@ -81,32 +93,52 @@ public class Player : MonoBehaviour
             Debug.Log ("P" + playerNumber + " hit by explosion!");
             //Destroy(gameObject);
         }
+
+        if (other.CompareTag ("numBombs"))
+        {
+            numBombs += 1;
+            Debug.Log("Other Collider:" + other.name);
+        }
+
+        if (other.CompareTag ("numExplosions"))
+        {
+            numExplosions += 1;
+            Debug.Log("Other Collider:" + other.name);
+        }
+
+        if (other.CompareTag ("numSpeeds"))
+        {
+            numSpeeds += 0.2f;
+            //Debug.Log ("Speed = " + numSpeeds);
+            Debug.Log("Other Collider:" + other.name);
+            //Destroy(gameObject);
+        }
     }
 
     private void UpdatePlayerMovement ()
     {
         if (Input.GetKey (KeyCode.UpArrow))
         { //Up movement
-            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, speed);
+            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, speed * numSpeeds);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
         }
 
         if (Input.GetKey (KeyCode.LeftArrow))
         { //Left movement
-            rigidBody.velocity = new Vector3 (-speed, rigidBody.velocity.y, rigidBody.velocity.z);
+            rigidBody.velocity = new Vector3 (-speed * numSpeeds, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
         }
 
         if (Input.GetKey (KeyCode.DownArrow))
         { //Down movement
-            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -speed);
+            rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -speed * numSpeeds);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
 
         }
 
         if (Input.GetKey (KeyCode.RightArrow))
         { //Right movement
-            rigidBody.velocity = new Vector3 (speed, rigidBody.velocity.y, rigidBody.velocity.z);
+            rigidBody.velocity = new Vector3 (speed * numSpeeds, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
         }
     }

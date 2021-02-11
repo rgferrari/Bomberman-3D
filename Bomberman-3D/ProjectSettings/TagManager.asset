@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Explosion
   - Bomb
+  - Brick
+  - numBombs
+  - numSpeeds
+  - numExplosions
   layers:
   - Default
   - TransparentFX

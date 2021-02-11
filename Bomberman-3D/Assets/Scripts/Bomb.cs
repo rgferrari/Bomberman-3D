@@ -7,6 +7,8 @@ public class Bomb : MonoBehaviour
 
     public GameObject explosionPrefab;
     public LayerMask levelMask;
+
+    public LayerMask levelMaskBlocks;
     private bool exploded = false;
 
     void Start ()
@@ -50,7 +52,7 @@ public class Bomb : MonoBehaviour
     {
         if (!exploded && other.CompareTag("Explosion"))
         {
-            Debug.Log(other);
+            //Debug.Log(other);
             CancelInvoke("Explode");
             Explode();
         }  
@@ -61,15 +63,29 @@ public class Bomb : MonoBehaviour
     {
         RaycastHit hit;
 
+        RaycastHit hitBlocks;
+
         int dist = 2;
 
         Physics.Raycast(transform.position, direction, out hit, 2, levelMask);
+
+        Physics.Raycast(transform.position, direction, out hitBlocks, 2, levelMaskBlocks);
+
         Debug.DrawLine(transform.position, hit.point, Color.green);
         for (int i = 1; i <= dist; i++) 
         { 
             if(!hit.collider)
             {
-                Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
+                if(hitBlocks.collider)
+                {
+                    Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
+                    break;
+                }
+                else
+                {
+                    Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
+                }
+                
             }
             else if(hit.distance > i) 
             { 
@@ -80,6 +96,6 @@ public class Bomb : MonoBehaviour
                 break; 
             }
         }
-        yield return new WaitForSeconds(.2f); 
+        yield return new WaitForSeconds(0); 
     }
 }

@@ -63,15 +63,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SurfaceNoise:
+        m_Texture: {fileID: 2800000, guid: 981ccc802a4d4d448bc6e5898b644002, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Amount: 0.795
+    - _Amount: 1
     - _Amplitude: 50
     - _BrightnessFactor: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _CutoutThresh: 0.341
     - _DetailNormalMapScale: 1
-    - _Distance: 0.46
+    - _Distance: 0.5
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -83,9 +87,9 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 1
+    - _Speed: 2
     - _SrcBlend: 1
-    - _Transparency: 0.316
+    - _Transparency: 0.4
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -94,5 +98,8 @@ Material:
     - _DarkerCol: {r: 0.33962262, g: 0.0016019973, b: 0.0016019973, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MiddleCol: {r: 0.6792453, g: 0.009611944, b: 0.009611944, a: 1}
-    - _TintColor: {r: 0.6886792, g: 0.061721236, b: 0.061721236, a: 1}
+    - _TintColor: {r: 0.6603774, g: 0, b: 0, a: 1}
+    - _TintColor1: {r: 0, g: 0, b: 0, a: 1}
+    - _TintColor2: {r: 1, g: 0, b: 0, a: 1}
+    - _TintColor3: {r: 1, g: 0.4519325, b: 0, a: 1}
   m_BuildTextureStacks: []

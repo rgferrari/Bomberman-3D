@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Explosao"
+﻿Shader "Unlit/PowerUp"
 {
     Properties
     {
@@ -7,24 +7,25 @@
 		_Intensity ("Intensity", float) = 1.0
 		_BrightnessFactor ("Brightness Factor", float) = 1.0
 
-        _TintColor1("Tint Color1", Color) = (1,1,1,1)
-        _TintColor2("Tint Color2", Color) = (1,1,1,1)
-        _TintColor3("Tint Color3", Color) = (1,1,1,1)
+        _TintColor("Tint Color", Color) = (1,1,1,1)
         _Transparency("Transparency", Range(0.0,1)) = 0.25
         //_CutoutThresh("Cutout Threshold", Range(0.0,1.0)) = 0.2
         _Distance("Distance", Float) = 1
         _Amplitude("Amplitude", Float) = 1
         _Speed ("Speed", Float) = 1
         _Amount("Amount", Range(0.0,1.0)) = 1
-
-        _SurfaceNoise("Surface Noise", 2D) = "white" {}
     }
 
     SubShader
     {
-        Tags {"Queue"="Transparent" "RenderType"="Transparent" }
+        Tags
+        {
+            "Queue"="Transparent" 
+            "RenderType"="Transparent"
+            "LightMode" = "ForwardBase"
+        }
         LOD 100
-
+        UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
         ZWrite on
         Blend SrcAlpha OneMinusSrcAlpha
 
@@ -55,9 +56,7 @@
 			float _Intensity;
 			float _BrightnessFactor;
             
-            float4 _TintColor1;
-            float4 _TintColor2;
-            float4 _TintColor3;
+            float4 _TintColor;
             //float4 _Color;
             float _Transparency;
             float _CutoutThresh;
@@ -66,23 +65,18 @@
             float _Speed;
             float _Amount;
 
-            sampler2D _SurfaceNoise;
-            float4 _SurfaceNoise_ST;
-
             v2f vert (appdata v)
             {
                 v2f o;
 
-                v.vertex.x += sin(_Time.z * _Speed + v.vertex.x * _Amplitude) * _Distance * _Amount * v.normal.x;
-                v.vertex.y += sin(_Time.z * _Speed + v.vertex.y * _Amplitude) * _Distance * _Amount * v.normal.y;
-                v.vertex.z += sin(_Time.z * _Speed + v.vertex.z * _Amplitude) * _Distance * _Amount * v.normal.z;
+                v.vertex.x += ((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal.x;
+                v.vertex.y += ((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal.y;
+                v.vertex.z += ((sin(_Time.z * _Speed + _Amplitude) + 1) / 2.0) * _Distance * _Amount * v.normal.z;
                 //v.vertex.y += (sin(_Time.z * _Speed + v.vertex.y * _Amplitude) * _Distance * _Amount);
                 //v.vertex.z += (sin(_Time.z * _Speed + v.vertex.y * _Amplitude) * _Distance * _Amount);
 
-                o.uv = TRANSFORM_TEX(v.uv, _SurfaceNoise);
-
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
@@ -95,41 +89,17 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_SurfaceNoise, i.uv); // + _TintColor para as linhas
+                fixed4 col = tex2D(_MainTex, i.uv); // + _TintColor para as linhas
                 //fixed4 gray = float4(0.3, 0.59, 0.11, 1);
                 //fixed4 gray = float4(100/255, 100/255, 100/255, 1);
                 //fixed4 red = float4(1, 0, 0, 1);
 
                 //fixed4 l = lerp(red, gray, sin(_Time.z* 2));*/
 
-                fixed lum = saturate(Luminance(col.rgb));
-
-                //float surfaceNoiseSample = tex2D(_SurfaceNoise, i.uv).r;
-
-                float surfaceNoiseSample = lum - 0.5;
-
                 //gray.x = 60/255;
                 //gray.y = 60/255;
                 //gray.z = 60/255;
                 //gray.a = 60/255;
-
-                
-
-                if(lum < 0.33){
-                    _TintColor1.a = _Transparency;
-                    return _TintColor1 + surfaceNoiseSample;
-                }
-                else if(lum >= 0.33 && lum < 0.66)
-                {
-                    _TintColor2.a = _Transparency;
-                    return _TintColor2 + surfaceNoiseSample;
-                }
-                else if(lum >= 0.66 && lum <= 1)
-                {
-                    _TintColor3.a = _Transparency;
-                    return _TintColor3 + surfaceNoiseSample;
-                }
-
 
 
                 //fixed4 original = tex2D(_MainTex, i.uv);
@@ -160,11 +130,13 @@
                 //o.Smoothness = 0;
 
                 //fixed4 pixelColor = tex2D(_MainTex, i.uv);
+                col.a = _Transparency;
                 //_TintColor.a = _Transparency;
                 //clip(col.r - _CutoutThresh);
-                //return l;
 
-                return _TintColor1 + surfaceNoiseSample;
+
+                return col * _TintColor;
+                //return l;
             }
             ENDCG
         }
