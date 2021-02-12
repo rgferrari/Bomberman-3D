@@ -10,6 +10,7 @@ TagManager:
   - numBombs
   - numSpeeds
   - numExplosions
+  - Enemy
   layers:
   - Default
   - TransparentFX

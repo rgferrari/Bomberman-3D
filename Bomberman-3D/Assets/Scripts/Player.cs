@@ -25,28 +25,89 @@ public class Player : Character
     private void UpdatePlayerMovement ()
     {
         if (Input.GetKey (KeyCode.UpArrow))
-        { //Up movement
-            myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, speed * numSpeeds);
-            myTransform.rotation = Quaternion.Euler (0, 0, 0);
+        { 
+            numKeys = 1;
         }
-
         if (Input.GetKey (KeyCode.LeftArrow))
-        { //Left movement
-            myRigidbody.velocity = new Vector3 (-speed * numSpeeds, myRigidbody.velocity.y, myRigidbody.velocity.z);
-            myTransform.rotation = Quaternion.Euler (0, 270, 0);
+        { 
+            numKeys = 1;
         }
-
         if (Input.GetKey (KeyCode.DownArrow))
-        { //Down movement
-            myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, -speed * numSpeeds);
-            myTransform.rotation = Quaternion.Euler (0, 180, 0);
-
+        { 
+            numKeys = 1;
         }
-
         if (Input.GetKey (KeyCode.RightArrow))
-        { //Right movement
-            myRigidbody.velocity = new Vector3 (speed * numSpeeds, myRigidbody.velocity.y, myRigidbody.velocity.z);
-            myTransform.rotation = Quaternion.Euler (0, 90, 0);
+        { 
+            numKeys = 1;
         }
+
+        if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.LeftArrow))
+        { 
+            numKeys = 2;
+        }
+        if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.RightArrow))
+        { 
+            numKeys = 2;
+        }
+        if (Input.GetKey (KeyCode.DownArrow) && Input.GetKey (KeyCode.RightArrow))
+        { 
+            numKeys = 2;
+        }
+        if (Input.GetKey (KeyCode.DownArrow) && Input.GetKey (KeyCode.LeftArrow))
+        { 
+            numKeys = 2;
+        }
+
+        Debug.Log(numKeys);
+
+        if(numKeys == 1)
+        {
+            if (Input.GetKey (KeyCode.UpArrow))
+            { //Up movement
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, speed);
+                myTransform.rotation = Quaternion.Euler (0, 0, 0);
+            }
+            if (Input.GetKey (KeyCode.LeftArrow))
+            { //Left movement
+                myRigidbody.velocity = new Vector3 (-speed, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myTransform.rotation = Quaternion.Euler (0, 270, 0);
+            }
+            if (Input.GetKey (KeyCode.DownArrow))
+            { //Down movement
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, -speed);
+                myTransform.rotation = Quaternion.Euler (0, 180, 0);
+            }
+            if (Input.GetKey (KeyCode.RightArrow))
+            { //Right movement
+                myRigidbody.velocity = new Vector3 (speed, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myTransform.rotation = Quaternion.Euler (0, 90, 0);
+            }
+        }
+        
+        if(numKeys == 2)
+        {
+            if (Input.GetKey (KeyCode.UpArrow))
+            { //Up movement
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, speed/2);
+                myTransform.rotation = Quaternion.Euler (0, 0, 0);
+            }
+            if (Input.GetKey (KeyCode.LeftArrow))
+            { //Left movement
+                myRigidbody.velocity = new Vector3 (-speed/2, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myTransform.rotation = Quaternion.Euler (0, 270, 0);
+            }
+            if (Input.GetKey (KeyCode.DownArrow))
+            { //Down movement
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, -speed/2);
+                myTransform.rotation = Quaternion.Euler (0, 180, 0);
+            }
+            if (Input.GetKey (KeyCode.RightArrow))
+            { //Right movement
+                myRigidbody.velocity = new Vector3 (speed/2, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myTransform.rotation = Quaternion.Euler (0, 90, 0);
+            }
+        }
+
+        
     }
 }

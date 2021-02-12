@@ -8,7 +8,6 @@ public class Character : MonoBehaviour
     public float speed;
     public int playerNumber = 1;
     public int numBombs;
-    public float numSpeeds;
     public int numExplosions;
     protected Rigidbody myRigidbody;
     protected Transform myTransform;
@@ -20,9 +19,15 @@ public class Character : MonoBehaviour
     public Text textNumExplosion;
     public Text textNumSpeed;
 
+    public int numKeys;
+
     protected virtual void Start() { 
         myRigidbody = gameObject.GetComponent<Rigidbody>();
         myTransform = transform;
+
+        textNumBomb.text = (numBombs).ToString();
+        textNumExplosion.text = (numExplosions).ToString();
+        textNumSpeed.text = (speed).ToString();
     }
 
     protected void DropBomb() 
@@ -51,6 +56,8 @@ public class Character : MonoBehaviour
                     Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(transform.position.x), 
                             transform.position.y, Mathf.RoundToInt(transform.position.z)),
                             bombPrefab.transform.rotation);
+                    
+                    //Physics.IgnoreLayerCollision(9, 10, true);
                 }
             }
         }
@@ -80,9 +87,9 @@ public class Character : MonoBehaviour
 
         if (other.CompareTag ("numSpeeds"))
         {
-            numSpeeds += 0.2f;
+            speed += 1;
             //Debug.Log ("Speed = " + numSpeeds);
-            textNumSpeed.text = (speed * numSpeeds).ToString();
+            textNumSpeed.text = (speed).ToString();
             //Debug.Log("Other Collider:" + other.name);
             //Destroy(gameObject);
         }

@@ -9,16 +9,42 @@ public class Bomb : MonoBehaviour
     public LayerMask levelMask;
 
     public LayerMask levelMaskBlocks;
+
     private bool exploded = false;
 
 
-    public GameObject playerPrefab;
+    //public GameObject playerPrefab;
+
+    public GameObject[] players;
+
+    public GameObject[] enemies;
 
     public int numExplosions = 1;
 
+    private float dist;
+
+    void Awake() {
+        players = GameObject.FindGameObjectsWithTag("Player");
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
+
     void Start ()
     {
-        Invoke("Explode", 3f); //Call Explode in 3 seconds
+        Invoke("Explode", 3f);
+    }
+
+    void FixedUpdate() {
+        dist = Vector3.Distance(players[0].gameObject.transform.position, gameObject.transform.position);
+        Debug.Log(dist);
+
+        if(dist <= 0.5f)
+        {
+            Physics.IgnoreLayerCollision(9, 10, true);
+        }
+        else
+        {
+            Physics.IgnoreLayerCollision(9, 10, false);
+        }
     }
 
     void Explode ()
@@ -30,11 +56,6 @@ public class Bomb : MonoBehaviour
         StartCoroutine(CreateExplosions(Vector3.back));
         StartCoroutine(CreateExplosions(Vector3.left));
 
-        // StartCoroutine(CreateExplosions(Vector3.forward + new Vector3(0,0,0.5f)));
-        // StartCoroutine(CreateExplosions(Vector3.right + new Vector3(0.5f,0,0)));
-        // StartCoroutine(CreateExplosions(Vector3.back + new Vector3(0,0,-0.5f)));
-        // StartCoroutine(CreateExplosions(Vector3.left + new Vector3(-0.5f,0,0)));
-
         GetComponent<MeshRenderer>().enabled = false;
         exploded = true;
         GetComponent<BoxCollider>().gameObject.SetActive(false);
@@ -45,7 +66,6 @@ public class Bomb : MonoBehaviour
     {
         if (!exploded && other.CompareTag("Explosion"))
         {
-            //Debug.Log(other);
             CancelInvoke("Explode");
             Explode();
         }  
@@ -57,8 +77,6 @@ public class Bomb : MonoBehaviour
         RaycastHit hit;
 
         RaycastHit hitBlocks;
-
-        //int dist = 2;
 
         Physics.Raycast(transform.position, direction, out hit, numExplosions, levelMask);
 
