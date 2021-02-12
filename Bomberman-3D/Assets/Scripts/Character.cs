@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
                 {
                     bombPrefab.gameObject.GetComponent<Bomb>().numExplosions = numExplosions;
                     Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(transform.position.x), 
-                            transform.position.y + 0.5f, Mathf.RoundToInt(transform.position.z)),
+                            transform.position.y, Mathf.RoundToInt(transform.position.z)),
                             bombPrefab.transform.rotation);
                 }
             }

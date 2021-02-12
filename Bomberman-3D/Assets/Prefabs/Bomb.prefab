@@ -104,6 +104,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerPrefab: {fileID: 7916135815902925799, guid: 7c5d55af2ea81b1418334c8b7a03f82d, type: 3}
+  numExplosions: 1
 --- !u!54 &-6859227974912073245
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 90
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &3270409444666281667
 BoxCollider:

@@ -21,20 +21,6 @@ public class Bomb : MonoBehaviour
         Invoke("Explode", 3f); //Call Explode in 3 seconds
     }
 
-    void Update()
-    {
-        //numExplosions = playerPrefab.gameObject.GetComponent<Player>().numExplosions;
-        Debug.Log(numExplosions);
-        /*Vector3 forward = transform.TransformDirection(Vector3.forward) + new Vector3(0,0,0.5f);
-        Vector3 right = transform.TransformDirection(Vector3.right) + new Vector3(0.5f,0,0);
-        Vector3 back = transform.TransformDirection(Vector3.back) + new Vector3(0,0,-0.5f);
-        Vector3 left = transform.TransformDirection(Vector3.left) + new Vector3(-0.5f,0,0);
-        Debug.DrawRay(transform.position, forward, Color.green);
-        Debug.DrawRay(transform.position, right, Color.green);
-        Debug.DrawRay(transform.position, back, Color.green);
-        Debug.DrawRay(transform.position, left, Color.green);*/
-    }
-
     void Explode ()
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
@@ -74,9 +60,9 @@ public class Bomb : MonoBehaviour
 
         //int dist = 2;
 
-        Physics.Raycast(transform.position, direction, out hit, 2, levelMask);
+        Physics.Raycast(transform.position, direction, out hit, numExplosions, levelMask);
 
-        Physics.Raycast(transform.position, direction, out hitBlocks, 2, levelMaskBlocks);
+        Physics.Raycast(transform.position, direction, out hitBlocks, numExplosions, levelMaskBlocks);
 
         Debug.DrawLine(transform.position, hit.point, Color.green);
         for (int i = 1; i <= numExplosions; i++) 
