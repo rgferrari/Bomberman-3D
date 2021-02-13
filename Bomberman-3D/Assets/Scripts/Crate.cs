@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+public class Crate : MonoBehaviour
 {
     //public Transform m_NewTransform;
     Collider m_Collider;

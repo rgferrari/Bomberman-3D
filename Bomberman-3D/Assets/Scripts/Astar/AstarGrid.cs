@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class AstarGrid : MonoBehaviour
 {
 
     public Transform StartPosition;//This is where the program will start the pathfinding from.
@@ -24,6 +24,12 @@ public class Grid : MonoBehaviour
         fNodeDiameter = fNodeRadius * 2;//Double the radius to get diameter
         iGridSizeX = Mathf.RoundToInt(vGridWorldSize.x / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.
         iGridSizeY = Mathf.RoundToInt(vGridWorldSize.y / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.
+        //CreateGrid();//Draw the grid
+    }
+
+    private void Update() {
+        // O ideal seria atualizar apenas quando há mudança no mapa como
+        // destruição de bombas e de caixas
         CreateGrid();//Draw the grid
     }
 
@@ -41,7 +47,7 @@ public class Grid : MonoBehaviour
                 //If the node is not being obstructed
                 //Quick collision check against the current node and anything in the world at its position. If it is colliding with an object with a WallMask,
                 //The if statement will return false.
-                if (Physics.CheckBox(worldPoint, new Vector3(fNodeRadius-0.1f,fNodeRadius-0.1f,fNodeRadius-0.1f),new Quaternion(0,0,0,0),WallMask))
+                if (Physics.CheckBox(worldPoint, new Vector3(0.1f,0.1f,0.1f),new Quaternion(0,0,0,0),WallMask))
                 {
                     Wall = false;//Object is not a wall
                 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour {
 
-    Grid GridReference;//For referencing the grid class
+    AstarGrid GridReference;//For referencing the grid class
     public Transform StartPosition;//Starting position to pathfind from
     public Transform TargetPosition;//Starting position to pathfind to
 
     private void Awake()//When the program starts
     {
-        GridReference = GetComponent<Grid>();//Get a reference to the game manager
+        GridReference = GetComponent<AstarGrid>();//Get a reference to the game manager
     }
 
     private void Update()//Every frame
