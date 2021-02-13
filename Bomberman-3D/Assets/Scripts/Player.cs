@@ -58,7 +58,7 @@ public class Player : Character
             numKeys = 2;
         }
 
-        Debug.Log(numKeys);
+        //Debug.Log(numKeys);
 
         if(numKeys == 1)
         {
@@ -88,22 +88,22 @@ public class Player : Character
         {
             if (Input.GetKey (KeyCode.UpArrow))
             { //Up movement
-                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, speed/2);
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, speed/1.5f);
                 myTransform.rotation = Quaternion.Euler (0, 0, 0);
             }
             if (Input.GetKey (KeyCode.LeftArrow))
             { //Left movement
-                myRigidbody.velocity = new Vector3 (-speed/2, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myRigidbody.velocity = new Vector3 (-speed/1.5f, myRigidbody.velocity.y, myRigidbody.velocity.z);
                 myTransform.rotation = Quaternion.Euler (0, 270, 0);
             }
             if (Input.GetKey (KeyCode.DownArrow))
             { //Down movement
-                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, -speed/2);
+                myRigidbody.velocity = new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y, -speed/1.5f);
                 myTransform.rotation = Quaternion.Euler (0, 180, 0);
             }
             if (Input.GetKey (KeyCode.RightArrow))
             { //Right movement
-                myRigidbody.velocity = new Vector3 (speed/2, myRigidbody.velocity.y, myRigidbody.velocity.z);
+                myRigidbody.velocity = new Vector3 (speed/1.5f, myRigidbody.velocity.y, myRigidbody.velocity.z);
                 myTransform.rotation = Quaternion.Euler (0, 90, 0);
             }
         }

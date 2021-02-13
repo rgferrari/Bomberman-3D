@@ -35,7 +35,7 @@ public class Bomb : MonoBehaviour
 
     void FixedUpdate() {
         dist = Vector3.Distance(players[0].gameObject.transform.position, gameObject.transform.position);
-        Debug.Log(dist);
+        //Debug.Log(dist);
 
         if(dist <= 0.5f)
         {

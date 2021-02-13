@@ -7299,10 +7299,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   playerNumber: 1
+  numBombs: 0
+  numExplosions: 0
   bombPrefab: {fileID: 824507874171719224, guid: 292e300b65ff032499616c975a87d250, type: 3}
   canDropBombs: 1
   canMove: 1
   dead: 0
+  textNumBomb: {fileID: 0}
+  textNumExplosion: {fileID: 0}
+  textNumSpeed: {fileID: 0}
+  numKeys: 0
 --- !u!54 &1849524625
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8346,6 +8352,83 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131094057}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &975677514166543096
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971727914743265334, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536081318641946333, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_Name
+      value: Quad
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090451555836994509, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090451555836994509, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090451555836994509, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090451555836994509, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090451555836994509, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 502e909a84c799d42b751d77ba9db866, type: 3}
 --- !u!1001 &1623041780272239932
 PrefabInstance:
   m_ObjectHideFlags: 0
