@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
+    public GameObject player;
     public GameObject astarGrid;
     List<Node> path;
     Vector3 target;
-    float bombRadius;
-    float step = 1f;
     bool bombExists;
     bool isInDangerZone;
     bool powerUpExists;
@@ -16,16 +15,28 @@ public class Enemy : MonoBehaviour
     float myDistanceToPlayer;
     int currentState;
 
-    void Start(){
-        Random.Range(0,2);
+    new void Start(){
+        // 0 for chasing the player
+        // 1 for chasing blocks
+        currentState = Random.Range(0,2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(bombExists && isInDangerZone){
-            // Wait 1s
-            // Go to the nearest safe zone
+        myDistanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(Input.GetKey (KeyCode.A))
+            DropBomb();
+        
+        isInDangerZone = false;
+        foreach(Vector3 explosionPosition in astarGrid.GetComponent<AstarGrid>().explosionPositions){
+            if (Vector3.Distance(transform.position, explosionPosition) <= 2f)
+                isInDangerZone = true;
+        }
+
+        if(isInDangerZone){
+            Vector3 nearestSafePos = astarGrid.GetComponent<AstarGrid>().nearestSafeNode.vPosition;
+            MoveTowards(nearestSafePos);
         }
 
         else if(powerUpExists){
@@ -35,21 +46,32 @@ public class Enemy : MonoBehaviour
             } 
         }
 
-        else if(myDistanceToPlayer < bombRadius){
-            // Move towards the nearest blowing up zone
-            // Place a bomb
-        }
+        // else if(myDistanceToPlayer < numExplosions){
+        //     // Move towards the nearest blowing up zone
+        //     // Place a bomb
+        //     currentState = Random.Range(0,2);
+        // }
 
-        MoveTowardsPlayer();
+        //else if(currentState == 0){
+            // Wait 1s
+        else
+            MoveTowards(player.transform.position);
+        //}
+        
+        //else if(currentState == 1)
+            // Wait 1s
+            //MoveTowardsCrate();
     }
 
-    void MoveTowardsPlayer(){
+    void MoveTowards(Vector3 targetPos){
+        astarGrid.GetComponent<Pathfinding>().StartPosition = transform.position;
+        astarGrid.GetComponent<Pathfinding>().TargetPosition = targetPos;
         path = astarGrid.GetComponent<AstarGrid>().FinalPath;
         if(path != null && path.Count > 0){
             target = path[0].vPosition;
             target = new Vector3(target.x, transform.position.y, target.z);
             LookAtMovementDirection(path[0].vPosition);
-            transform.position = Vector3.MoveTowards(transform.position, target, step * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             if(transform.position == target)
                 path.RemoveAt(0);
         }
@@ -59,6 +81,5 @@ public class Enemy : MonoBehaviour
         Vector3 lookDir = dir - transform.position;
         lookDir.y = 0f; //this is the critical part, this makes the look direction perpendicular to 'up'
         transform.rotation = Quaternion.LookRotation(lookDir, Vector3.up);
-        //transform.position += transform.forward * 1.5f * Time.deltaTime;
     }
 }

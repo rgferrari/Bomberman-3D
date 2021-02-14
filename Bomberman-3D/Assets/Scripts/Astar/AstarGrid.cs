@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AstarGrid : MonoBehaviour
 {
-
+    private GameObject[] bombs;
     public Transform StartPosition;//This is where the program will start the pathfinding from.
     public LayerMask WallMask;//This is the mask that the program will look for when trying to find obstructions to the path.
     public Vector2 vGridWorldSize;//A vector2 to store the width and height of the graph in world units.
@@ -14,7 +15,12 @@ public class AstarGrid : MonoBehaviour
     Node[,] NodeArray;//The array of nodes that the A Star algorithm uses.
     public List<Node> FinalPath;//The completed path that the red line will be drawn along
 
+    [HideInInspector]
+    public Node nearestSafeNode;
+    [HideInInspector]
+    public List<Vector3> explosionPositions;
 
+    
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
     int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
 
@@ -35,6 +41,16 @@ public class AstarGrid : MonoBehaviour
 
     void CreateGrid()
     {
+        bombs = GameObject.FindGameObjectsWithTag("Bomb");
+
+        explosionPositions = new List<Vector3>();
+        
+        float minDistanceToSafePos = int.MaxValue;
+
+        foreach(GameObject bomb in bombs){
+            explosionPositions = explosionPositions.Concat(bomb.GetComponent<Bomb>().explosionPositions).ToList<Vector3>();
+        }
+
         NodeArray = new Node[iGridSizeX, iGridSizeY];//Declare the array of nodes.
         Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;//Get the real world position of the bottom left of the grid.
         for (int x = 0; x < iGridSizeX; x++)//Loop through the array of nodes.
@@ -43,6 +59,7 @@ public class AstarGrid : MonoBehaviour
             {
                 Vector3 worldPoint = bottomLeft + Vector3.right * (x * fNodeDiameter + fNodeRadius) + Vector3.forward * (y * fNodeDiameter + fNodeRadius);//Get the world co ordinates of the bottom left of the graph
                 bool Wall = true;//Make the node a wall
+                bool isDanger = false;
 
                 //If the node is not being obstructed
                 //Quick collision check against the current node and anything in the world at its position. If it is colliding with an object with a WallMask,
@@ -52,7 +69,25 @@ public class AstarGrid : MonoBehaviour
                     Wall = false;//Object is not a wall
                 }
 
+                //Debug.Log(explosionPositions.Count);
+                foreach(Vector3 explosionPosition in explosionPositions){
+                    // Must equal the y to 0 for the comparation to succeed
+                    Vector3 adjustedExplosionPoint = new Vector3(explosionPosition.x, 0f, explosionPosition.z);
+                    if (worldPoint == adjustedExplosionPoint){
+                        isDanger = true;
+                    }
+                }
+
                 NodeArray[x, y] = new Node(Wall, worldPoint, x, y);//Create a new node in the array.
+                NodeArray[x, y].isDanger = isDanger;
+
+                if(!NodeArray[x, y].isDanger && NodeArray[x, y].bIsWall){
+                    float distance = Vector3.Distance(StartPosition.position, NodeArray[x, y].vPosition);
+                    if (minDistanceToSafePos > distance){
+                        minDistanceToSafePos = distance;
+                        nearestSafeNode = NodeArray[x, y];
+                    }
+                }
             }
         }
     }
@@ -138,9 +173,19 @@ public class AstarGrid : MonoBehaviour
                 {
                     Gizmos.color = Color.white;//Set the color of the node
                 }
+
                 else
                 {
                     Gizmos.color = Color.yellow;//Set the color of the node
+                }
+
+                if(n.isDanger){
+                    Gizmos.color = Color.magenta;
+                }
+
+                else if (nearestSafeNode.vPosition == n.vPosition){
+                    Debug.Log("pebis");
+                    Gizmos.color = Color.green;
                 }
 
 

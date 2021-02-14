@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    //GameObject  ChildGameObject;
-
-    void Start()
-    {
-        //ChildGameObject = transform.GetChild (0).gameObject;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -19,7 +12,7 @@ public class PowerUp : MonoBehaviour
 
     public void OnTriggerEnter (Collider other)
     {
-        if (other.CompareTag ("Player"))
+        if (other.CompareTag ("Player") || other.CompareTag ("Enemy"))
         {
             Destroy(gameObject);
         }

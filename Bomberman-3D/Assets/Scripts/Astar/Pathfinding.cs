@@ -5,8 +5,12 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour {
 
     AstarGrid GridReference;//For referencing the grid class
-    public Transform StartPosition;//Starting position to pathfind from
-    public Transform TargetPosition;//Starting position to pathfind to
+    // public Transform StartPosition;//Starting position to pathfind from
+    // public Transform TargetPosition;//Starting position to pathfind to
+    [HideInInspector]
+    public Vector3 StartPosition;//Starting position to pathfind from
+    [HideInInspector]
+    public Vector3 TargetPosition;//Starting position to pathfind to
 
     private void Awake()//When the program starts
     {
@@ -15,7 +19,7 @@ public class Pathfinding : MonoBehaviour {
 
     private void Update()//Every frame
     {
-        FindPath(StartPosition.position, TargetPosition.position);//Find a path to the goal
+        FindPath(StartPosition, TargetPosition);//Find a path to the goal
     }
 
     void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)

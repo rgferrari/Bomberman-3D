@@ -7,8 +7,8 @@ public class Character : MonoBehaviour
 {
     public float speed;
     public int playerNumber = 1;
-    public int numBombs;
-    public int numExplosions;
+    public int numBombs = 1;
+    public int numExplosions = 1;
     protected Rigidbody myRigidbody;
     protected Transform myTransform;
     public GameObject bombPrefab;
@@ -19,6 +19,7 @@ public class Character : MonoBehaviour
     public Text textNumExplosion;
     public Text textNumSpeed;
 
+    [HideInInspector]
     public int numKeys;
 
     protected virtual void Start() { 
@@ -41,7 +42,11 @@ public class Character : MonoBehaviour
             Vector3 player = new Vector3(Mathf.RoundToInt(transform.position.x), 
                             transform.position.y, Mathf.RoundToInt(transform.position.z));
 
+            int numBombsInField = 0;
             foreach(GameObject obj in objs) {
+                if(obj.GetComponent<Bomb>().playerNumber == playerNumber)
+                    numBombsInField++;
+
                 if(Vector3.Distance(player, obj.transform.position) < 1){
                     col = true;
                 }
@@ -50,14 +55,14 @@ public class Character : MonoBehaviour
             //Debug.Log(objs.Length);
 
             if (col == false){
-                if(objs.Length < numBombs)
+                if(numBombsInField < numBombs)
                 {
-                    bombPrefab.gameObject.GetComponent<Bomb>().numExplosions = numExplosions;
-                    Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(transform.position.x), 
+                    GameObject bomb = Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(transform.position.x), 
                             transform.position.y, Mathf.RoundToInt(transform.position.z)),
                             bombPrefab.transform.rotation);
                     
-                    //Physics.IgnoreLayerCollision(9, 10, true);
+                    bomb.GetComponent<Bomb>().numExplosions = numExplosions;
+                    bomb.GetComponent<Bomb>().playerNumber = playerNumber;
                 }
             }
         }
@@ -74,14 +79,16 @@ public class Character : MonoBehaviour
         if (other.CompareTag ("numBombs"))
         {
             numBombs += 1;
-            textNumBomb.text = numBombs.ToString();
+            if(playerNumber == 1)
+                textNumBomb.text = numBombs.ToString();
             //Debug.Log("Other Collider:" + other.name);
         }
 
         if (other.CompareTag ("numExplosions"))
         {
             numExplosions += 1;
-            textNumExplosion.text = numExplosions.ToString();
+            if(playerNumber == 1)
+                textNumExplosion.text = numExplosions.ToString();
             //Debug.Log("Other Collider:" + other.name);
         }
 
@@ -89,7 +96,8 @@ public class Character : MonoBehaviour
         {
             speed += 1;
             //Debug.Log ("Speed = " + numSpeeds);
-            textNumSpeed.text = (speed).ToString();
+            if(playerNumber == 1)
+                textNumSpeed.text = (speed).ToString();
             //Debug.Log("Other Collider:" + other.name);
             //Destroy(gameObject);
         }
