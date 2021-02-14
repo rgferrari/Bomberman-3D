@@ -78,8 +78,7 @@ public class AstarGrid : MonoBehaviour
                     }
                 }
 
-                NodeArray[x, y] = new Node(Wall, worldPoint, x, y);//Create a new node in the array.
-                NodeArray[x, y].isDanger = isDanger;
+                NodeArray[x, y] = new Node(Wall, isDanger, worldPoint, x, y);//Create a new node in the array.
 
                 if(!NodeArray[x, y].isDanger && NodeArray[x, y].bIsWall){
                     float distance = Vector3.Distance(StartPosition.position, NodeArray[x, y].vPosition);
@@ -184,7 +183,6 @@ public class AstarGrid : MonoBehaviour
                 }
 
                 else if (nearestSafeNode.vPosition == n.vPosition){
-                    Debug.Log("pebis");
                     Gizmos.color = Color.green;
                 }
 

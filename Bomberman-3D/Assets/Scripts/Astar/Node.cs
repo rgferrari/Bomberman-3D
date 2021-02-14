@@ -16,8 +16,9 @@ public class Node {
 
     public int FCost { get { return igCost + ihCost; } }//Quick get function to add G cost and H Cost, and since we'll never need to edit FCost, we dont need a set function.
 
-    public Node(bool a_bIsWall, Vector3 a_vPos, int a_igridX, int a_igridY)//Constructor
+    public Node(bool a_bIsWall, bool a_isDanger, Vector3 a_vPos, int a_igridX, int a_igridY)//Constructor
     {
+        isDanger = a_isDanger;
         bIsWall = a_bIsWall;//Tells the program if this node is being obstructed.
         vPosition = a_vPos;//The world position of the node.
         iGridX = a_igridX;//X Position in the Node Array

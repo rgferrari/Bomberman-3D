@@ -30,7 +30,7 @@ public class Enemy : Character
         
         isInDangerZone = false;
         foreach(Vector3 explosionPosition in astarGrid.GetComponent<AstarGrid>().explosionPositions){
-            if (Vector3.Distance(transform.position, explosionPosition) <= 2f)
+            if (Vector3.Distance(transform.position, explosionPosition) <= 3f)
                 isInDangerZone = true;
         }
 
@@ -54,8 +54,9 @@ public class Enemy : Character
 
         //else if(currentState == 0){
             // Wait 1s
-        else
+        else{
             MoveTowards(player.transform.position);
+        }
         //}
         
         //else if(currentState == 1)
