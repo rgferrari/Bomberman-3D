@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AstarGrid : MonoBehaviour
 {
-    private GameObject[] bombs;
     public Transform StartPosition;//This is where the program will start the pathfinding from.
     public LayerMask WallMask;//This is the mask that the program will look for when trying to find obstructions to the path.
     public Vector2 vGridWorldSize;//A vector2 to store the width and height of the graph in world units.
@@ -19,6 +18,13 @@ public class AstarGrid : MonoBehaviour
     public Node nearestSafeNode;
     [HideInInspector]
     public List<Vector3> explosionPositions;
+    [HideInInspector]
+    public List<Vector3> powerUpPositions;
+    [HideInInspector]
+    public List<Vector3> cratePositions;
+    //public Vector3 nearestPowerUp;
+
+    
 
     
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
@@ -41,14 +47,59 @@ public class AstarGrid : MonoBehaviour
 
     void CreateGrid()
     {
-        bombs = GameObject.FindGameObjectsWithTag("Bomb");
+        GameObject[] bombs = GameObject.FindGameObjectsWithTag("Bomb");
+        
+        GameObject[] crates = GameObject.FindGameObjectsWithTag("Crate");
+
+        GameObject[] explosionPowerUps = GameObject.FindGameObjectsWithTag("numExplosions");
+
+        GameObject[] bombPowerUps = GameObject.FindGameObjectsWithTag("numBombs");
+
+        GameObject[] speedPowerUps = GameObject.FindGameObjectsWithTag("numSpeeds");
+
+        cratePositions = new List<Vector3>();
 
         explosionPositions = new List<Vector3>();
         
+        powerUpPositions = new List<Vector3>();
+        
         float minDistanceToSafePos = int.MaxValue;
 
+        // Get the position of all explosions on the map
         foreach(GameObject bomb in bombs){
+            explosionPositions.Add(bomb.transform.position);
             explosionPositions = explosionPositions.Concat(bomb.GetComponent<Bomb>().explosionPositions).ToList<Vector3>();
+        }
+
+        // Get the postition of all power ups on the map
+        foreach(GameObject explosionPowerUp in explosionPowerUps){
+            powerUpPositions.Add(explosionPowerUp.transform.position);
+        }
+
+        foreach(GameObject bombPowerUp in bombPowerUps){
+            powerUpPositions.Add(bombPowerUp.transform.position);
+        }
+
+        foreach(GameObject speedPowerUp in speedPowerUps){
+            powerUpPositions.Add(speedPowerUp.transform.position);
+        }
+
+        // if(powerUpPositions.Count > 0){
+        //     float minDistanceToPowerUp = int.MaxValue;
+        //     foreach(Vector3 powerUpPosition in powerUpPositions){
+        //         float distanceToPowerUp = Vector3.Distance(StartPosition.position, powerUpPosition);
+        //         if(distanceToPowerUp < minDistanceToPowerUp){
+        //             minDistanceToPowerUp = distanceToPowerUp;
+        //             nearestPowerUp = powerUpPosition;
+        //         }
+        //     }
+        // }
+        // else{
+        //     nearestPowerUp = new Vector3();
+        // }
+
+        foreach(GameObject crate in crates){
+            cratePositions.Add(crate.transform.position);
         }
 
         NodeArray = new Node[iGridSizeX, iGridSizeY];//Declare the array of nodes.

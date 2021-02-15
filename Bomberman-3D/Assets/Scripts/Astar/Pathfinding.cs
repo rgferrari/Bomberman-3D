@@ -19,10 +19,12 @@ public class Pathfinding : MonoBehaviour {
 
     private void Update()//Every frame
     {
-        FindPath(StartPosition, TargetPosition);//Find a path to the goal
+        //Debug.Log("Start Position" + StartPosition);
+        //Debug.Log("Target Position" + TargetPosition);
+        //FindPath(StartPosition, TargetPosition);//Find a path to the goal
     }
 
-    void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
+    public void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
         Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);//Gets the node closest to the starting position
         Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);//Gets the node closest to the target position

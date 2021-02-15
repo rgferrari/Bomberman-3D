@@ -54,8 +54,6 @@ public class Bomb : MonoBehaviour
 
     void FixedUpdate() {
         dist = Vector3.Distance(character.transform.position, gameObject.transform.position);
-        //Debug.Log(dist);
-
         if(dist <= 0.5f)
         {
             if(playerNumber == 1)
@@ -100,34 +98,31 @@ public class Bomb : MonoBehaviour
     }
 
     private void CalculateExplosions(Vector3 direction){
-        RaycastHit hit;
+        RaycastHit hitWall;
 
         RaycastHit hitBlocks;
 
-        Physics.Raycast(transform.position, direction, out hit, numExplosions, levelMask);
+        Physics.Raycast(transform.position, direction, out hitWall, numExplosions, levelMask);
 
         Physics.Raycast(transform.position, direction, out hitBlocks, numExplosions, levelMaskBlocks);
 
-        Debug.DrawLine(transform.position, hit.point, Color.green);
+        Debug.DrawLine(transform.position, hitWall.point, Color.green);
         for (int i = 1; i <= numExplosions; i++) 
         { 
-            if(!hit.collider)
+            if(!hitWall.collider || hitWall.distance > i )
             {
                 if(hitBlocks.collider)
                 {
                     explosionPositions.Add(transform.position + (i * direction));
-                    break;
+                    if(Vector3.Distance(hitBlocks.transform.position, transform.position + (i * direction)) < 1f ){
+                        break;
+                    }
                 }
                 else
                 {
                     explosionPositions.Add(transform.position + (i * direction));
                 }
-                
             }
-            else if(hit.distance > i) 
-            { 
-                explosionPositions.Add(transform.position + (i * direction));
-            } 
             else 
             {
                 break; 
@@ -138,34 +133,30 @@ public class Bomb : MonoBehaviour
     // Must calculate again because of eventual grid updates
     private IEnumerator CreateExplosions(Vector3 direction) 
     {
-        RaycastHit hit;
+        RaycastHit hitWall;
 
         RaycastHit hitBlocks;
 
-        Physics.Raycast(transform.position, direction, out hit, numExplosions, levelMask);
+        Physics.Raycast(transform.position, direction, out hitWall, numExplosions, levelMask);
 
         Physics.Raycast(transform.position, direction, out hitBlocks, numExplosions, levelMaskBlocks);
-
-        Debug.DrawLine(transform.position, hit.point, Color.green);
+        
         for (int i = 1; i <= numExplosions; i++) 
         { 
-            if(!hit.collider)
+            if(!hitWall.collider || hitWall.distance > i )
             {
                 if(hitBlocks.collider)
                 {
                     Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
-                    break;
+                    if(Vector3.Distance(hitBlocks.transform.position, transform.position + (i * direction)) < 0.5f ){
+                        break;
+                    }
                 }
                 else
                 {
                     Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation);
                 }
-                
             }
-            else if(hit.distance > i) 
-            { 
-                Instantiate(explosionPrefab, transform.position + (i * direction), explosionPrefab.transform.rotation); 
-            } 
             else 
             {
                 break; 
@@ -173,14 +164,4 @@ public class Bomb : MonoBehaviour
         }
         yield return new WaitForSeconds(0); 
     }
-
-    // private void OnDrawGizmos()
-    // {
-    //     if (explosionPositions != null){
-    //         Gizmos.color = Color.red;
-    //         foreach(Vector3 explosionPosition in explosionPositions){
-    //             Gizmos.DrawCube(explosionPosition, Vector3.one * 0.5f);//Draw the node at the position of the node.
-    //         }
-    //     }
-    // }
 }

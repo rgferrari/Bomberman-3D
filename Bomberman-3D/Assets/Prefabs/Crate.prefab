@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2173079943552567244}
   m_Layer: 8
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: Crate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fbea04a85cac74eb9769fa2a11d50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPowerUP: {fileID: 824507874171719224, guid: 292e300b65ff032499616c975a87d250, type: 3}
+  bombPowerUP: {fileID: 356556415863527744, guid: ff0396e639fd26142aae774b75ce427c, type: 3}
   ExplosionPowerUP: {fileID: 8597895283940047543, guid: 8a21df74fc37cc342851d319cb257587, type: 3}
   speedPowerUP: {fileID: 5177421169106007878, guid: 6fae8ad736cea024bb15be18c528c172, type: 3}
 --- !u!95 &8323932080619738220
