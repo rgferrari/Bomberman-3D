@@ -63,7 +63,7 @@ public class AstarGrid : MonoBehaviour
         
         powerUpPositions = new List<Vector3>();
         
-        float minDistanceToSafePos = int.MaxValue;
+        
 
         // Get the position of all explosions on the map
         foreach(GameObject bomb in bombs){
@@ -102,6 +102,8 @@ public class AstarGrid : MonoBehaviour
             cratePositions.Add(crate.transform.position);
         }
 
+        float minDistanceToSafePos = int.MaxValue;
+
         NodeArray = new Node[iGridSizeX, iGridSizeY];//Declare the array of nodes.
         Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;//Get the real world position of the bottom left of the grid.
         for (int x = 0; x < iGridSizeX; x++)//Loop through the array of nodes.
@@ -130,7 +132,8 @@ public class AstarGrid : MonoBehaviour
                 }
 
                 NodeArray[x, y] = new Node(Wall, isDanger, worldPoint, x, y);//Create a new node in the array.
-
+            
+            
                 if(!NodeArray[x, y].isDanger && NodeArray[x, y].bIsWall){
                     float distance = Vector3.Distance(StartPosition.position, NodeArray[x, y].vPosition);
                     if (minDistanceToSafePos > distance){
@@ -233,9 +236,9 @@ public class AstarGrid : MonoBehaviour
                     Gizmos.color = Color.magenta;
                 }
 
-                else if (nearestSafeNode.vPosition == n.vPosition){
-                    Gizmos.color = Color.green;
-                }
+                // else if (nearestSafeNode.vPosition == n.vPosition){
+                //     Gizmos.color = Color.green;
+                // }
 
 
                 if (FinalPath != null)//If the final path is not empty

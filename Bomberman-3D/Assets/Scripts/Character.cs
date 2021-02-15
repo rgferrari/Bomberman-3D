@@ -94,10 +94,15 @@ public class Character : MonoBehaviour
 
         if (other.CompareTag ("numSpeeds"))
         {
-            speed += 1;
+            if(playerNumber == 2 && speed < 6.5)
+                speed += 1;
+            
+            if(playerNumber == 1 && speed < 10)
+                speed += 1;
             //Debug.Log ("Speed = " + numSpeeds);
-            if(playerNumber == 1)
+            if(playerNumber == 1){
                 textNumSpeed.text = (speed).ToString();
+            }
             //Debug.Log("Other Collider:" + other.name);
             //Destroy(gameObject);
         }

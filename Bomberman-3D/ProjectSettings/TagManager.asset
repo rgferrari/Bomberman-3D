@@ -6,11 +6,11 @@ TagManager:
   tags:
   - Explosion
   - Bomb
-  - Brick
   - numBombs
   - numSpeeds
   - numExplosions
   - Enemy
+  - Crate
   layers:
   - Default
   - TransparentFX
