@@ -19,8 +19,8 @@ public class Pathfinding : MonoBehaviour {
 
     private void Update()//Every frame
     {
-        Debug.Log("Start Position" + StartPosition);
-        Debug.Log("Target Position" + TargetPosition);
+        //Debug.Log("Start Position" + StartPosition);
+        //Debug.Log("Target Position" + TargetPosition);
         FindPath(StartPosition, TargetPosition);//Find a path to the goal
     }
 

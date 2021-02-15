@@ -36,7 +36,7 @@ public class Enemy : Character
     void Update()
     {
         if(thinking){
-            Debug.Log("Qual o sentido da vida???");
+            //Debug.Log("Qual o sentido da vida???");
             timer -= Time.deltaTime;
         }
 
@@ -103,7 +103,7 @@ public class Enemy : Character
             nearestSafePos.y = transform.position.y;
             float distanceToSafeZone = Vector3.Distance(transform.position, nearestSafePos);
         
-            Debug.Log("Estou Fugindo");
+            //Debug.Log("Estou Fugindo");
 
             //Debug.Log("NearestSafePos" + nearestSafePos);
 
@@ -172,8 +172,8 @@ public class Enemy : Character
         
         // If has to chase crate
         else if(currentState == 1 && !thinking){
-            Debug.Log("Caixa " + targetCratePos + "Inimigo " + transform.position);
-            Debug.Log("Distance to Crate " + myDistanceToCrate);
+            //Debug.Log("Caixa " + targetCratePos + "Inimigo " + transform.position);
+            //Debug.Log("Distance to Crate " + myDistanceToCrate);
             if(myDistanceToCrate <= .5f){
                 DropBomb();
                 hasTargetCrate = false;
@@ -181,7 +181,7 @@ public class Enemy : Character
                 currentState = Random.Range(0,2);
             }
             if(cratePositions.Count > 0){
-                Debug.Log(cratePositions.Count);
+                //Debug.Log(cratePositions.Count);
                 if(!hasTargetCrate){
                     GetTargetCrate();
                 }
@@ -217,11 +217,11 @@ public class Enemy : Character
     void GetTargetCrate(){
         ShuffleCrates();
         foreach(Vector3 cratePos in cratePositions){
-            Debug.Log("To procurando caixas");
+            //Debug.Log("To procurando caixas");
             
             Vector3[] targetCratePosNeighbors = {Vector3.forward, Vector3.back, Vector3.right, Vector3.left};
 
-            Debug.Log(targetCratePosNeighbors.Length);
+            //Debug.Log(targetCratePosNeighbors.Length);
 
             foreach(Vector3 neighbor in targetCratePosNeighbors){
                 Vector3 pos = cratePos + neighbor;
